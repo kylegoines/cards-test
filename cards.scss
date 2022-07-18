@@ -1,0 +1,73 @@
+.panel-wrapper {
+  position: relative;
+  top: 0;
+}
+
+.sticky-panel-wrapper {
+  //   height: 100vh;
+  //   position: sticky;
+  //   overflow: hidden;
+  top: 0;
+}
+
+.panel {
+  //   position: absolute;
+  //   top: 0;
+  border-radius: 20px;
+  width: 100%;
+  padding: 0px 24px 48px;
+  overflow: hidden;
+}
+
+.header {
+  height: 48px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.panel--acitve {
+  overflow: auto;
+}
+
+.panel-wrapper {
+  width: 100%;
+  position: relative;
+}
+
+.panel__chapter {
+  height: 36px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+.panel-1,
+.panel-6 {
+  background: pink;
+}
+
+.panel-2 {
+  background: yellow;
+}
+
+.panel-3 {
+  background: plum;
+  color: white;
+}
+
+.panel-4 {
+  background: salmon;
+  color: white;
+}
+
+.panel-5 {
+  background: greenyellow;
+}
+
+.panel-6 {
+  background: blanchedalmond;
+}
+
+.panel-7 {
+  background: purple;
+}
