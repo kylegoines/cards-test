@@ -1,9 +1,11 @@
 .panel-wrapper {
   position: relative;
   top: 0;
+  border: 3px solid blue;
 }
 
 .sticky-panel-wrapper {
+  border: 3px solid red;
   //   height: 100vh;
   //   position: sticky;
   //   overflow: hidden;
@@ -31,14 +33,6 @@
 .panel-wrapper {
   width: 100%;
   position: relative;
-}
-
-.panel__chapter {
-  height: 36px;
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
 }
 
 .panel-1,
