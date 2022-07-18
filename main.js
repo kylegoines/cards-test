@@ -26,7 +26,10 @@ panels.forEach((elem, index) => {
   }
 })
 
-wrapper.style.height = `${wrapperHeight + tabs - 48}px`
+// the height needs all the tabs -1 panel (the first panel doesnt need an offset)
+wrapper.style.height = `${
+  wrapperHeight + tabs - headerHeight * (panels.length - 1)
+}px`
 const wrapperOffset = getOffset(wrapper) // top 696
 
 console.log('wrapper offset ', wrapperOffset)
@@ -40,11 +43,16 @@ panels.forEach((currentPanel, index) => {
 
   panels.forEach((nestedElem, nestedIndex) => {
     if (nestedIndex < index) {
-      panelActiveScrollPos = panelActiveScrollPos + getOffset(nestedElem).height
+      //   const addedPad = nestedIndex === 0 ? 0 : 48
+
+      panelActiveScrollPos =
+        panelActiveScrollPos +
+        getOffset(nestedElem).height -
+        (index === 0 ? 0 : 48)
     }
   })
   panelActiveScrollPos = panelActiveScrollPos + wrapperOffset.top
-  panelInactiveScrollPos = panelActiveScrollPos + panelOffset.height
+  panelInactiveScrollPos = panelActiveScrollPos + panelOffset.height - 48
 
   window.addEventListener('scroll', () => {
     scrolPos = window.scrollY
@@ -53,13 +61,11 @@ panels.forEach((currentPanel, index) => {
     const nextPanel = panels[nextIndex]
     if (!nextPanel) return
 
-    const formatScrollPos = panelActiveScrollPos - scrolPos
-
     if (scrolPos < panelActiveScrollPos) {
       nextPanel.style.transform = `translateY(0px)`
     }
 
-    if (scrolPos > panelInactiveScrollPos - headerHeight) {
+    if (scrolPos > panelInactiveScrollPos) {
       nextPanel.style.transform = `translateY(${
         panelOffset.height * -1 + 48
       }px)`
@@ -67,8 +73,14 @@ panels.forEach((currentPanel, index) => {
 
     if (
       scrolPos >= panelActiveScrollPos &&
-      scrolPos <= panelInactiveScrollPos - headerHeight
+      scrolPos <= panelInactiveScrollPos
     ) {
+      //   if (index === 0 || index === 1) {
+      //     //   console.log(scrolPos)
+      //     //   console.log(formatScrollPos)
+      //   }
+
+      const formatScrollPos = panelActiveScrollPos - scrolPos
       nextPanel.style.transform = `translateY(${formatScrollPos}px)`
     }
   })
