@@ -10,6 +10,7 @@ const headerHeight = 48
 const tabs = headerHeight * (panels.length - 1) // at any time theres only that many tabs
 let wrapperOffset = getOffset(wrapper)
 let scrolPos = window.scrollY
+const borderRaidus = 24
 
 const setInitialHeights = () => {
   const windowHeight = window.innerHeight
@@ -24,19 +25,24 @@ const setInitialHeights = () => {
     // make every panel the corect size
     // panels should equal the height of the screen minus the tab height
     const panelHeight = windowHeight - tabs
-    elem.style.height = `${panelHeight}px`
+    elem.style.height = `${panelHeight + borderRaidus}px`
 
     elem.style.zIndex = `${index + 1}`
     wrapperHeight = wrapperHeight + panelHeight
     if (index !== 0) {
       // how far to pulldown the amount of space
-      elem.style.top = `calc( 100% - ${tabs - (index - 1) * headerHeight}px)`
+      elem.style.top = `calc( 100% - ${
+        tabs - (index - 1) * headerHeight + borderRaidus
+      }px)`
     }
   })
 
   // the height needs all the tabs -1 panel (the first panel doesnt need an offset)
   wrapper.style.height = `${
-    wrapperHeight + tabs - headerHeight * (panels.length - 1)
+    wrapperHeight +
+    tabs -
+    headerHeight * (panels.length - 1) +
+    borderRaidus * (panels.length - 1)
   }px`
   wrapperOffset = getOffset(wrapper)
 }
@@ -58,7 +64,8 @@ const setPanel = (currentPanel, index) => {
     }
   })
   panelActiveScrollPos = panelActiveScrollPos + wrapperOffset.top
-  panelInactiveScrollPos = panelActiveScrollPos + panelOffset.height - 48
+  panelInactiveScrollPos =
+    panelActiveScrollPos + panelOffset.height - 48 - borderRaidus
 
   // we animated next panel
   // grab that content and transfrom it
@@ -71,7 +78,9 @@ const setPanel = (currentPanel, index) => {
   }
 
   if (scrolPos > panelInactiveScrollPos) {
-    nextPanel.style.transform = `translateY(${panelOffset.height * -1 + 48}px)`
+    nextPanel.style.transform = `translateY(${
+      panelOffset.height * -1 + 48 + borderRaidus
+    }px)`
   }
 
   if (scrolPos >= panelActiveScrollPos && scrolPos <= panelInactiveScrollPos) {
