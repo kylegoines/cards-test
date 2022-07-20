@@ -43,8 +43,6 @@ panels.forEach((currentPanel, index) => {
 
   panels.forEach((nestedElem, nestedIndex) => {
     if (nestedIndex < index) {
-      //   const addedPad = nestedIndex === 0 ? 0 : 48
-
       panelActiveScrollPos =
         panelActiveScrollPos +
         getOffset(nestedElem).height -
@@ -57,6 +55,8 @@ panels.forEach((currentPanel, index) => {
   window.addEventListener('scroll', () => {
     scrolPos = window.scrollY
 
+    // we animated next panel
+    // grab that content and transfrom it
     const nextIndex = index + 1
     const nextPanel = panels[nextIndex]
     if (!nextPanel) return
@@ -75,11 +75,6 @@ panels.forEach((currentPanel, index) => {
       scrolPos >= panelActiveScrollPos &&
       scrolPos <= panelInactiveScrollPos
     ) {
-      //   if (index === 0 || index === 1) {
-      //     //   console.log(scrolPos)
-      //     //   console.log(formatScrollPos)
-      //   }
-
       const formatScrollPos = panelActiveScrollPos - scrolPos
       nextPanel.style.transform = `translateY(${formatScrollPos}px)`
     }
